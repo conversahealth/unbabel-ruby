@@ -6,19 +6,23 @@ require "json"
 
 class Unbabel
 
-  @@UNBABEL_SANDBOX_DOMAIN = 'http://sandbox.unbabel.com/tapi/v2/'
-  @@UNBABEL_DOMAIN = 'https://unbabel.com/tapi/v2/'
+  UNBABEL_SANDBOX_DOMAIN = 'http://sandbox.unbabel.com/tapi/v2/'
+  UNBABEL_DOMAIN = 'https://unbabel.com/tapi/v2/'
 
 
   def initialize(username, apikey, sandbox=false)
     @username = username
     @apikey = apikey
-    unbabel_endpoint_domain = sandbox ? @@UNBABEL_SANDBOX_DOMAIN : @@UNBABEL_DOMAIN
+    # Be more forgiving of input - accept sandbox as a boolean or a string
+    if sandbox.to_s.downcase == 'true'
+      unbabel_endpoint_domain = UNBABEL_SANDBOX_DOMAIN
+    else
+      unbabel_endpoint_domain = UNBABEL_DOMAIN
+    end
     unbabel_endpoint_domain = ENV['UNBABEL_URL'] if ENV['UNBABEL_URL']
 
     @conn = Faraday.new(:url => unbabel_endpoint_domain) do |faraday|
       faraday.request  :url_encoded
-      faraday.response :logger
       faraday.adapter  Faraday.default_adapter
     end
   end
@@ -39,7 +43,6 @@ class Unbabel
         req.params[k] = v
       end
       unless method == 'get'
-        puts data.to_json
         req.body = data.to_json
       end
     end
