@@ -6,7 +6,7 @@ require "json"
 
 class Unbabel
 
-  UNBABEL_SANDBOX_DOMAIN = 'http://sandbox.unbabel.com/tapi/v2/'
+  UNBABEL_SANDBOX_DOMAIN = 'https://sandbox.unbabel.com/tapi/v2/'
   UNBABEL_DOMAIN = 'https://unbabel.com/tapi/v2/'
 
 
