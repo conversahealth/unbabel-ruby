@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'unbabel-ruby'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.date        = '2014-11-14'
   s.summary     = "Unbabel ruby wrapper"
   s.description = ""
